@@ -1,0 +1,2 @@
+* Fix bug - free space isn't updated when a package is removed.
+* Fix bug - free space is changed when a package is reinstalled.
