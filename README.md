@@ -45,10 +45,6 @@ See [cpsmanual.html](docs/cpsmanual.html) in docs/
 
 [changlog.txt](docs/changelog.txt) and [todo.txt](docs/todo.txt) can be found in docs/
 
-## Packages
-
-Packages for CPS can be found under the cps-packages repository.
-
 ## Dev Team
 
 Code improvements, testing and feedback credit go to these amazing volunteers.
@@ -75,3 +71,9 @@ More screenshots..
 10. [Uninstall CPS](docs/.screenshots/CPS_uninstall.png)
 
 More still can be found under docs/.screenshots
+
+## Packages
+
+There are no tested working pacakges for this development branch of CPS. Packages which work with the older CPS version 0.7b can be found in the main branch under packages/
+
+See the README in the main branch for package names and descriptions.
