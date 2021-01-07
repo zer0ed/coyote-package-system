@@ -1,0 +1,158 @@
+#!/bin/sh
+#
+# - CPS Install Packages Menu -
+# Copyright (C) 2002, Wes Brewer
+# Distributed under the terms of the GNU GPL2
+
+#Uncomment for debug mode (don't suppress STDOUT and STDERR)
+#DEBUG=1
+if [ "$DEBUG" ] ; then
+	qt () { "$@" ; }
+else
+	qt () { "$@" >/dev/null 2>&1 ; }
+fi
+
+MNT="/var/lib/lrpkg/mnt"		# mount dir
+DEV="/dev/boot"				# device to use
+TMP="/tmp"				# temp dir
+PACKLIST="/etc/coyote/packages"		# package list
+
+MOREFLOP=1				# more disks loop
+while [ "$MOREFLOP" = 1 ]; do
+   while [ : ]; do			# force user selection
+      sync
+      qt umount $MNT
+      clear
+      echo "                     -=-  Coyote Pacakge System  -=-"
+      echo "                                                         [ Install Package ]"
+      echo
+      echo "   Please place a floppy disk with the package files (.cps) to be installed in"
+      echo "the drive then select the proper disk size (usually 1.44 Mb). "
+      echo
+      echo " Select the size of the disk in your floppy drive /dev/fd0 ..."
+      echo
+      echo "                 1) 1.44 Mb        2) 1.68 Mb        3) 1.72 Mb  "
+      echo
+      echo " q) quit"
+      echo " ----------------------------------------------------------------------------- "
+      echo -n "	Selection: "
+      read OPT
+      case $OPT in
+         q | Q ) sync
+                 qt umount $MNT
+                 clear
+                 exit 0 ;;
+             1 ) qt mount -r /dev/fd0u1440 $MNT
+                 break ;;
+             2 ) qt mount -r /dev/fd0u1680 $MNT
+                 break ;;
+             3 ) qt mount -r /dev/fd0u1722 $MNT
+                 break ;;
+             * ) ;;
+      esac
+   done
+
+ MOREPACK=1				# loop for more packages (same disk)
+    while [ "$MOREPACK" = 1 ]; do
+      while [ : ]; do
+      clear
+      echo "                  -=-  Coyote Package System  -=-"
+      echo "                                                      [ Install Package ]"
+      echo
+      echo "   Please type the filename (including it's .cps extention) of the package"
+      echo "you wish to install.  Do Not use a wildcards such as *, as you will be asked if you want to install more packages"
+      echo
+      echo " List of Coyote Package files on this disk ... "
+      echo
+      cd $MNT
+      ls *.cps
+      echo
+      echo " q) quit"
+      echo " ----------------------------------------------------------------------------- "
+      echo -n " Filename: "
+      read FILENAME
+      if [ "$FILENAME" = "q" ] || [ "$FILENAME" = "Q" ]; then
+         sync
+         qt umount $MNT
+         exit 0
+       elif [ "$FILENAME" = "" ]; then
+       elif [ -e $MNT/$FILENAME ]; then break	# check if package file exists
+      fi
+      done
+
+   PACKNAME="${FILENAME%.cps}"
+   set -- `ls -l $MNT/$FILENAME`		# set packsize var.
+   PACKSIZE=$(($5/1024))
+   set -- `cat $TMP/freesp`
+   FREESP=$1
+
+   echo
+   echo
+   echo " Details"
+   echo " ~~~~~~~"
+   echo "Estimated size of $PACKNAME package:  $PACKSIZE Kb"
+   echo "Free space available on boot device:  $FREESP Kb"
+  
+   # Check for enough free space on boot device
+   if [ $FREESP -le $(($PACKSIZE + 10)) ] ; then
+      echo
+      echo "!! You don't have enough free space on your boot device !!"
+      echo "        !! Try removing some unused packages !!"
+      read JUNK
+      exit 1
+   fi
+   
+   echo
+   echo "Installing $PACKNAME Package ..."	# unzip package
+   cp $MNT/$FILENAME /temppack.tgz
+   cd /
+   gunzip -c temppack.tgz | tar -xf -
+
+   > $TMP/pkg.tmp
+   cat $PACKLIST | while read PKG; do		# remove duplicates
+      [ "$PKG" = "$PACKNAME" ] || echo $PKG >> $TMP/pkg.tmp
+   done
+   rm /etc/coyote/packages
+   mv $TMP/pkg.tmp /etc/coyote/packages
+   echo $PACKNAME >> $PACKLIST			# add to pack list
+
+   clear
+   more /var/lib/lrpkg/$PACKNAME.help		# read help file
+   read JUNK
+
+   /pack.cfg					# run pack config
+   rm /pack.cfg
+
+   FREESP=$(($FREESP-$PACKSIZE))
+   echo $FREESP > $TMP/freesp	# change free space size
+   
+   while [ : ]; do
+      echo
+      echo -n " Install another package from this disk? [y/n] : "
+      read OPT
+      case $OPT in
+         y | Y ) MOREPACK=1
+                 break ;;
+         n | N ) MOREPACK=0
+                 break ;;
+             * ) ;;
+      esac
+   done
+ done						# close more packages on same disk loop
+
+   sync
+   qt umount $MNT
+   while [ : ]; do
+      echo
+      echo -n " Install packages from another disk? [y/n] : "
+      read OPT
+      case $OPT in
+         y | Y ) MOREFLOP=1
+                 break ;;
+         n | N ) MOREFLOP=0
+                 break ;;
+             * ) ;;
+      esac
+   done
+done						# close more floppies loop
+

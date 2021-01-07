@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# - CPS Remove Packages Menu -
+# Copyright (C) 2002, Wes Brewer
+# Distributed under the terms of the GNU GPL2
+
+#Uncomment for debug mode (don't suppress STDOUT and STDERR)
+#DEBUG=1
+if [ "$DEBUG" ] ; then
+	qt () { "$@" ; }
+else
+	qt () { "$@" >/dev/null 2>&1 ; }
+fi
+
+MNT="/var/lib/lrpkg/mnt"		# mount dir
+DEV="/dev/boot"				# device to use
+TMP="/tmp"				# temp dir
+PACKLIST="/etc/coyote/packages"		# package list
+
+while [ : ]; do
+   clear
+   echo "                     -=-  Coyote Package System  -=-"
+   echo "                                                         [ Remove Package ]"
+   echo
+   echo
+   echo "  Please type the name of the package you wish to remove.  Do Not use the *"
+   echo "wildcard to remove more then one package!"
+   echo "When you are done removing packages type \"q\""
+   echo
+   echo " List of Coyote Packages currently installed ... "
+   cat $PACKLIST
+   echo
+   echo " q) quit"
+   echo " ----------------------------------------------------------------------------- "
+   echo -n "  Package Name: "
+   read PACKNAME
+   if [ "$PACKNAME" = "q" ] || [ "$PACKNAME" = "Q" ]; then
+      sync
+      qt umount $MNT
+      exit 0
+   elif [ "$PACKNAME" = "cps" ] || [ "$PACKNAME" = "CPS" ]; then
+      echo
+      echo
+      echo "!! Don't remove CPS this way !!"
+      echo " Please use the Uninstall option in the CPS main menu instead!"
+      read JUNK
+      sync
+      qt umount $MNT
+      exit 0
+   fi
+   cat $PACKLIST | while read CHKPKG; do	    #check for pack & remove
+      if [ "$CHKPKG" = "$PACKNAME" ]; then
+         > $TMP/pkg.tmp
+         cat $PACKLIST | while read PKG; do
+            [ "$PKG" = "$PACKNAME" ] || echo $PKG >> $TMP/pkg.tmp
+         done
+         cat /var/lib/lrpkg/$PACKNAME.list | while read PKG; do
+            rm /$PKG
+         done
+	 echo " Removing $PACKNAME Package ....."
+         rm $MNT/$PACKNAME.tgz $PACKLIST /var/lib/lrpkg/$PACKNAME.*
+         mv $TMP/pkg.tmp $PACKLIST
+         break
+      fi
+   done
+done
+

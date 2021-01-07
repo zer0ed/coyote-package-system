@@ -1,0 +1,4 @@
+/var/lib/lrpkg/cps.*
+/usr/sbin/cps*
+/usr/sbin/lrcfg
+/usr/sbin/lrcfg.old.cps

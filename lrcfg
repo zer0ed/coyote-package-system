@@ -1,0 +1,108 @@
+#!/bin/sh
+#
+#Linux Router Project 
+#
+#Coyote Linux Gateway
+
+. /etc/coyote/coyote.conf
+
+while [ 1 ]; do
+
+clear
+echo
+echo "                Coyote Linux Gateway -- configuration menu"
+echo	
+echo
+echo "	1) Network settings                     4) Change system password"
+echo
+echo -n "	2) System settings                      "
+if [ -x /usr/sbin/in.telnetd ]; then
+	if [ -r /etc/remote.allow ]; then
+		echo "5) Disable telnet access"
+	else
+		echo "5) Enable telnet access"
+	fi
+fi
+echo
+echo -n "	3) Package settings                     "
+if [ "${USERRM}" = "YES" ]; then
+	echo "6) Change Road Runner Config"
+else
+	echo
+fi
+echo
+echo "	c) Show running configuration		b) Back-up configuration"
+echo
+echo "	p) Coyote Package System		h) Help"
+echo
+echo "  q) quit"
+echo "  ----------------------------------------------------------------------------"
+echo -n "	Selection: "
+
+read OPT
+
+
+	case $OPT in
+		q | Q)	echo;echo "Exiting lrcfg";echo
+			break ;;
+		1 )	lrcfg.conf '			Network configuration menu' \
+					'conf' '$LRPKG/root.net.conf' '' 'edit $CONF1'  ;;
+		2 )	lrcfg.conf '			System configuration menu' \
+					'conf' '$LRPKG/root.sys.conf' '' 'edit $CONF1'  ;;
+		3 )	lrcfg.conf '			Package configuration menu' \
+					'pack' '$LRPKG/packages' '-f $LRPKG/$CONF.conf' \
+			'lrcfg.conf.packs "$CONF" "$LRPKG" '
+		;;
+		4 )	clear
+			passwd
+			echo
+			echo "Press enter to return to system menu."
+			read JUNK ;;
+		5 )	clear
+			RLPID=`pidof rlaunch`
+			if [ -r /etc/remote.allow ]; then
+				echo "Disabling telnet access..."
+				rm -f /etc/remote.allow
+				[ "$RLPID" = "" ] || kill $RLPID
+			else
+				ROOTPASS=`grep root: /etc/shadow | cut -f 2 -d :`
+				if [ -z "$ROOTPASS" ]; then
+					echo "Please set a system password before enabling telnet access!"
+				else				
+					echo "Enabling telnet access..."
+					> /etc/remote.allow
+					[ "$RLPID" = "" ] && /usr/sbin/rlaunch
+				fi
+			fi
+			echo
+			echo "Press enter to return to system menu."
+			read JUNK ;;
+		6 )	if [ "${USE_RRM}" = "YES" ] & [ -x /sbin/rrconf ]; then
+				clear
+				/sbin/rrconf
+				echo
+				echo "Press enter to return to the system menu."
+				read JUNK
+			fi ;;
+		c | C)  showcfg
+			echo
+			echo -n "Press enter to return to system menu. "
+			read JUNK ;;
+		b | B)	clear
+			lrcfg.back 
+			echo
+			echo "Backup script complete. Press ENTER to return to menu."
+			read JUNK
+			;;
+		h | H)	lrcfg.conf '			Package Help Menu' \
+					'pack' '$LRPKG/packages' '-f $LRPKG/$CONF.help' \
+			'help $CONF;pauseme'  ;;
+		p | P)	clear
+			cps ;;
+	esac
+			
+
+done
+
+exit 1
+

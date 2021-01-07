@@ -1,0 +1,42 @@
+#!/bin/sh
+#
+# - CPS Install Script -
+# Copyright (C) 2002, Wes Brewer
+# Distributed under the terms of the GNU GPL2
+
+TMP="/tmp"				# temp dir
+PACKLIST="/etc/coyote/packages"		# package list
+
+while [ : ]; do				# force user selection loop
+   clear
+   cat menu				# show menu screen
+   echo -n "                                                   Selection: "
+   read OPT
+   case $OPT in
+      q | Q ) clear
+              exit 0 ;;
+      r | R ) clear
+              more licence.txt
+              read JUNK ;;
+      d | D ) clear
+              more devel.txt 
+              read JUNK ;;
+      i | I ) # check if backup of old menu exisits, if no then make one (1 line)
+              [ -e /usr/sbin/lrcfg.old.cps ] || cp /usr/sbin/lrcfg /usr/sbin/lrcfg.old.cps
+	      cp lrcfg cps cpsi cpsr /usr/sbin
+              cat cpslist > /var/lib/lrpkg/cps.list
+              > $TMP/pkg.tmp
+              cat $PACKLIST | while read PKG; do	# remove duplicates
+                 [ "$PKG" = "cps" ] || echo $PKG >> $TMP/pkg.tmp
+              done
+              rm $PACKLIST 
+              mv $TMP/pkg.tmp $PACKLIST
+              echo "cps" >> $PACKLIST	# add to pack list
+	      sync
+              clear
+              cat intro.txt		# show intro screen
+              read JUNK ;;
+          * ) ;;
+   esac
+done
+

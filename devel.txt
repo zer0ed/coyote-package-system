@@ -1,0 +1,13 @@
+                       CPS Development Team
+                     http://www.routerdesign.com
+
+
+Programming & Concept
+~~~~~~~~~~~~~~~~~~~~~
+Wes Brewer [nd3] - nd3@routerdesign.com
+
+Alpha & Beta Testing
+~~~~~~~~~~~~~~~~~~~~
+Rusty Martin [omega monk] - omega_monk@yahoo.com 
+Mel Kliner [northern rebel] - mkliner@neo.rr.com
+Andrew Barnes [canuckle] - canucklehead@ethergear.com
