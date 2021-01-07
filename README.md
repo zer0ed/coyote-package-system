@@ -1,4 +1,4 @@
-# coyote-package-system
+# Coyote Package System - CPS
 
 An unofficial package system for the now defunct Coyote Linux, a routing centric Linux distribution which fit on a floppy disk. From an earlier time when space and resources were precious!
 
