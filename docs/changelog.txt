@@ -1,3 +1,13 @@
+CPS Version 0.8b
+~~~~~~~~~~~~~~~~
+* Another beta but this one is for Coyote Linux v1.4x only
+* Scripts re-written by Rusty Martin and Wes Brewer to support CL 1.40 RC1.
+  CL main menu file and packages file have changed names/moved
+* Moved all help to seperate file named help.txt
+* Included modified lrcfg.back backup script to properly backup CPS packs
+* Updated copyright info to include 2003 year, RDP, Rusty Martin,
+  and Wes Brewer.
+
 CPS Version 0.7b
 ~~~~~~~~~~~~~~~~
 * CPS is now in it's 1st beta release and available to the public

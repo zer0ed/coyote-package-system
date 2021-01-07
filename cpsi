@@ -1,16 +1,22 @@
 #!/bin/sh
+# CPS Install Pack Menu
 #
-# - CPS Install Packages Menu -
-# Copyright (C) 2002, Wes Brewer
+# Copyright (C) 2002-2003, Router Design Project, Wes Brewer, Rusty Martin
 # Distributed under the terms of the GNU GPL2
+#
+# CPS v0.7b-v0.8a = Minor code changes for use with Coyote Linux v1.40 by Rusty Martin.
 
 #Uncomment for debug mode (don't suppress STDOUT and STDERR)
 #DEBUG=1
+
+#########################################
 if [ "$DEBUG" ] ; then
 	qt () { "$@" ; }
 else
 	qt () { "$@" >/dev/null 2>&1 ; }
 fi
+#########################################
+
 
 MNT="/var/lib/lrpkg/mnt"		# mount dir
 DEV="/dev/boot"				# device to use

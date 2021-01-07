@@ -1,0 +1,25 @@
+
+     Important note from the CPS Development Team
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    
+     Please note that this patch is for Coyote Linux v1.40 series routers
+    only!  For Coyote Linux v1.32 series or earlier versions, please visit
+    the CPS website @ http://www.routerdesign.com/cps.php
+    
+     As of this release (Feb 20, 2003) CPS v0.7b is the only patch to work
+    with Coyote Linux v1.32 or earlier.  Please check the above mentioned
+    website because we plan to release CPS v1.0 in the future which will
+    support both v1.3x and 1.4x series routers.
+    
+     This version of CPS is just a quick solution to those of you that want
+    to use pre-release versions of Coyote Linux 1.4x.  As of this writing
+    the latest Coyote is v1.40 RC1.  This version of CPS is for testing
+    purposes only and will not be fully supported.  It was quickly put
+    together by the CPS Devel Team as a solution for those of you running
+    Coyote Linux v1.40 RC1 (and any other pre-releases).
+    
+    The CPS Devel Team  has no intention in releasing a new version of CPS
+    until Coyote Linux v1.40 is in it's final release!
+    
+     Thanks to Rusty Martin [omega_monk] for applying the "quick fix"
+    to CPS so it will run on Coyote Linux v1.4x series routers.

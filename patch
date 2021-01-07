@@ -1,15 +1,19 @@
 #!/bin/sh
 #
-# - CPS Install Script -
-# Copyright (C) 2002, Wes Brewer
+# CPS Patch/Install Script
+#
+# Copyright (C) 2002-2003, Router Design Project, Wes Brewer, Rusty Martin
 # Distributed under the terms of the GNU GPL2
+#
+# CPS v0.7b-v0.8a = Minor code changes for use with Coyote Linux v1.40 by Rusty Martin.
+
 
 TMP="/tmp"				# temp dir
 PACKLIST="/etc/coyote/packages"		# package list
 
 while [ : ]; do				# force user selection loop
    clear
-   cat menu				# show menu screen
+   cat ins_menu				# show menu screen
    echo -n "                                                   Selection: "
    read OPT
    case $OPT in
@@ -18,12 +22,15 @@ while [ : ]; do				# force user selection loop
       r | R ) clear
               more licence.txt
               read JUNK ;;
-      d | D ) clear
-              more devel.txt 
+      h | H ) clear
+              more help.txt 
               read JUNK ;;
       i | I ) # check if backup of old menu exisits, if no then make one (1 line)
-              [ -e /usr/sbin/lrcfg.old.cps ] || cp /usr/sbin/lrcfg /usr/sbin/lrcfg.old.cps
-	      cp lrcfg cps cpsi cpsr /usr/sbin
+	      mkdir /etc/cps
+              [ -e /etc/cps/menu.old ] || cp /usr/sbin/menu /etc/cps/menu.old
+	      cp menu cps cpsi cpsr /usr/sbin
+	      cp help.txt /etc/cps
+	      cp lrcfg.back /usr/sbin
               cat cpslist > /var/lib/lrpkg/cps.list
               > $TMP/pkg.tmp
               cat $PACKLIST | while read PKG; do	# remove duplicates
@@ -33,6 +40,9 @@ while [ : ]; do				# force user selection loop
               mv $TMP/pkg.tmp $PACKLIST
               echo "cps" >> $PACKLIST	# add to pack list
 	      sync
+	      clear
+	      cat note.txt		# show quick note
+	      read JUNK
               clear
               cat intro.txt		# show intro screen
               read JUNK ;;

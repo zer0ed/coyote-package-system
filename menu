@@ -1,22 +1,97 @@
+#!/bin/sh
+#
+#Coyote Linux Gateway configuration menu
 
-                                  iM   
-                               XM: MM   +---------------------------------+ 
-                          XMMMM   MSS   |  COYOTE PACKAGE SYSTEM - Setup  |
-                      ,SMMM   7  M MX;  |=================================|#
-                   SMB7.          MM.   |                        ver 0.7b |#
-                    MMSMM8       MM     | Details                         |#
-                   MM       MMMMM7      | ~~~~~~~                         |#
-                MMM    a.     MM2       |  http://www.routerdesign.com    |#
-            MMMM,      .SM   MM         |  Copyright (C) 2002, Wes Brewer |#
-         MMMa            MMMMS,         |  Licence: GNU GPL version 2     |#
-       MM         :M    X0 M7.          |                                 |#
-     :M. rMMM2     Ma   M  M7           | Options                         |#
-    aM  M2   WMW    M  WMMM7            | ~~~~~~~                         |#
-    M          M  :MM  MiM              |  r) Read the GNU GPL2 Licence   |#
-   MM          MMMMWMi M M              |  d) Development team details    |#
-   M          8MM    M M8 M             |  i) Install CPS                 |#
- MM          MMM     M .MM BXM          |  q) Quit                        |#
-MM  MX      M07,0MMX M  ,MMMMMZ         |                                 |#
-M   iMMMMMMM   i  Ma  MM@M.             |                                 |#
-MMX        i7B,M                        +---------------------------------+#
-  MMMMBZMr Ba.SM2SM                        #################################
+# Source the coyote linux configuration file
+. /etc/coyote/coyote.conf
+
+while [ 1 ]; do
+
+clear
+echo
+echo "                Coyote Linux Gateway -- Configuration Menu"
+echo
+echo
+echo "  1) Edit main configuration file         2) Change system password"
+echo "  3) Edit firewall script                 4) Edit masquerade script (NAT)"
+echo
+echo "  c) Show running configuration           w) Write configuration to floppy"
+echo "  r) Reboot system                        p) CPS Menu"
+echo
+echo "  q) quit"
+echo "  ----------------------------------------------------------------------------"
+echo -n "  Selection: "
+
+read OPT
+
+
+	case $OPT in
+		q | Q)	echo
+			echo "Exiting menu. To return to the menu, simply type \"menu\" and"
+			echo "press enter from the command prompt."
+			echo
+			break
+		    ;;
+		1 )	edit /etc/coyote/coyote.conf
+		    ;;
+		2 )	clear
+			passwd
+			if [ -d /var/http/htdocs ]; then
+    			ROOTPASS=`grep root: /etc/shadow | cut -f 2 -d :`
+			    echo "Updating webadmin password..."
+			    echo "root:$ROOTPASS" > /var/http/htdocs/cgi-bin/.htpasswd
+			fi
+
+			# Update the Coyote Configuration file entry
+			ADMIN_AUTH=`grep root: /etc/shadow | cut -f 2 -d ":" | cut -b 5-`
+			if [ -r /tmp/coyote.tmp ]; then
+				rm /tmp/coyote.tmp
+			fi
+			touch /tmp/coyote.tmp
+			chmod 600 /tmp/coyote.tmp
+			cat /etc/coyote/coyote.conf | while read CONFENT; do
+				CONFLINE=`echo "$CONFENT" | cut -f 1 -d "="`
+				if ! [ "$CONFLINE" = "ADMIN_AUTH" ]; then
+					if [ ! -z "$CONFENT" ]; then
+						echo "$CONFENT" >> /tmp/coyote.tmp
+					fi
+				else
+					if [ ! -z "$CONFENT" ]; then
+						echo "ADMIN_AUTH=${ADMIN_AUTH}" >> /tmp/coyote.tmp
+					fi
+				fi
+			done
+
+			cp /tmp/coyote.tmp /etc/coyote/coyote.conf
+			rm /tmp/coyote.tmp
+			touch /tmp/need.save
+
+			echo
+			echo "Press enter to return to system menu."
+			read JUNK
+		    ;;
+		3 )	edit /etc/rc.d/rc.firewall
+		    ;;
+		4)	edit /etc/rc.d/rc.masquerade
+		    ;;
+		r | R)  reboot
+			exit 0;
+		    ;;
+		c | C)  showcfg
+			echo
+			echo -n "Press enter to return to system menu. "
+			read JUNK ;;
+		w | W)	clear
+			lrcfg.back
+			echo
+			echo "Backup script complete. Press ENTER to return to menu."
+			read JUNK
+		    ;;
+		p | P)  clear
+			cps;;
+	esac
+
+
+done
+
+exit 1

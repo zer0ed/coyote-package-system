@@ -1,4 +1,5 @@
+/etc/cps/*
 /var/lib/lrpkg/cps.*
 /usr/sbin/cps*
-/usr/sbin/lrcfg
-/usr/sbin/lrcfg.old.cps
+/usr/sbin/menu
+/usr/sbin/lrcfg.back

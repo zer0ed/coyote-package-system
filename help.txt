@@ -1,0 +1,33 @@
+
+ <<=========================================================================>>
+                                   CPS Help
+ <<=========================================================================>>
+
+  Packages, documentation and other help can be found at..
+   http://www.routerdesign.com/cps.php
+
+ <<=========================================================================>>
+                              CPS Development Team 
+ <<=========================================================================>>
+ 
+ -=[ Lead Programmer & Concept ]=-
+      Wes Brewer [nd3] - nd3@routerdesign.com
+
+ -=[ Programmer & Main Tester/Editor ]=-
+      Rusty Martin [omega_monk] - omega_monk@routerdesign.com
+
+ -=[ Alpha & Beta Testing (previous releases) ]=-
+      Mel Kliner [northern rebel] - mkliner@neo.rr.com"
+      Andrew Barnes [canuckle] - canucklehead@ethergear.com"
+
+ <<=========================================================================>>
+                           Contributions & Dontations
+ <<=========================================================================>>
+
+   If you find this software useful then please contribute to the development
+  of Coyote Linux. Without Coyote Linux, CPS wouldn't exsist!
+                                                 http://www.coyotelinux.com/
+
+   If you would like to contribute directly to the CPS project then you can do
+  so by visiting the support us link at the site.
+                                                 http://www.routerdesign.com/

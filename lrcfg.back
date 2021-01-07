@@ -1,0 +1,77 @@
+#!/bin/sh
+#
+# Coyote Linux Backup Script (Moded to work with CPS v0.8b)
+#
+
+#Uncomment for debug mode (don't suppress STDOUT and STDERR)
+#DEBUG=1
+
+if [ "$DEBUG" ] ; then
+	qt () { "$@" ; }
+else
+	qt () { "$@" >/dev/null 2>&1 ; }
+fi
+
+LRPKG="/var/lib/lrpkg"
+MNT="$LRPKG/mnt"
+WTMP="NO"
+CONFF="$LRPKG/packages"
+
+BACKSCRIPT="/usr/sbin/lrcfg.back.script"
+
+# Packages that are always backed up
+PKGS="etc modules dhcpd webadmin"
+
+echo "Backing up your Coyote Gateway Configuration..."
+echo
+
+echo "Backing up Standard Files..."
+echo
+if qt /usr/sbin/mount.boot $MNT ; then
+	# Backup mandatory packages
+	for CONF in $PKGS; do
+		if $BACKSCRIPT $CONF $WTMP $CWRT ; then
+			echo "Back-up of $CONF complete"
+		else
+			echo "Unable to back-up $CONF"
+		fi
+	done
+echo
+echo
+echo "Backing up Addon CPS Packs.."
+echo
+	# Backup additional packages
+	for CONF in `cat /etc/coyote/packages`; do
+	    if $BACKSCRIPT $CONF $WTMP ; then
+		echo "Back-up of $CONF complete"
+	    else
+		echo "Unable to back-up $CONF"
+	    fi
+	done
+	# Copy packages file to new location as of CL 1.4x
+	cp /etc/coyote/packages $MNT/packages
+echo	
+	# Original Code from CL 1.40 RC1
+	#if [ -r $MNT/packages ]; then
+	#    for CONF in `cat $MNT/packages`; do
+	#    	if $BACKSCRIPT $CONF $WTMP ; then
+	#		echo "Back-up of $CONF complete"
+	#	else
+	#		echo "Unable to back-up $CONF"
+	#	fi
+	#    done
+	#fi
+
+    # Copy the coyote configuration file to the floppy
+    echo -n "Saving configuration file: "
+    cp /etc/coyote/coyote.conf $MNT/coyote.cfg
+    echo "done."
+	if [ -r /tmp/need.save ]; then
+		rm /tmp/need.save
+	fi
+else
+	echo "Could not mount boot device."
+fi
+
+sync
+qt umount $MNT

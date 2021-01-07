@@ -1,18 +1,25 @@
 #!/bin/sh
+
+# CPS Main Menu
 #
-# - CPS Main Menu -
-# Copyright (C) 2002, Wes Brewer
+# Copyright (C) 2002-2003, Router Design Project, Wes Brewer, Rusty Martin
 # Distributed under the terms of the GNU GPL2
+#
+# CPS v0.7b-v0.8a = Minor code changes for use with Coyote Linux v1.40 by Rusty Martin.
 
 #Uncomment for debug mode (don't suppress STDOUT and STDERR)
 #DEBUG=1
+
+#########################################
 if [ "$DEBUG" ] ; then
 	qt () { "$@" ; }
 else
 	qt () { "$@" >/dev/null 2>&1 ; }
 fi
+#########################################
 
-VER="0.7b"				# CPS Version
+
+VER="0.8b"				# CPS Version
 MNT="/var/lib/lrpkg/mnt"		# mount dir
 DEV="/dev/boot"				# device to use
 TMP="/tmp"				# temp dir
@@ -26,7 +33,9 @@ while [ : ]; do				# force user selection loop
    until [ -e $MNT/etc.tgz ]; do	# force coyote disk check
       clear
       echo "Please place your Coyote Linux disk in the floppy drive"
-      echo "           and remove the write protection"
+      echo "and remove the write protection"
+      echo
+      echo "Press 'enter' to continue..."
       read JUNK
       sync
       qt umount $MNT
@@ -42,7 +51,7 @@ while [ : ]; do				# force user selection loop
    echo "			-=-  COYOTE PACKAGE SYSTEM  -=-"
    echo "                                                             CPS version $VER"
    echo " http://www.routerdesign.com"
-   echo "  Copyright (C) 2002,  Wes Brewer"
+   echo " Copyright (C) 2002-2003,  RDP, Wes Brewer, Rusty Martin"
    echo
    set `cat $TMP/freesp`
    echo "  Options                            Free space on /dev/boot: $1 Kb"
@@ -80,14 +89,15 @@ while [ : ]; do				# force user selection loop
       u | U ) echo -n " Are you sure you want to uninstall CPS? [y/n] :"
               read OPT
 	      if [ $OPT = "y" ] || [ $OPT = "Y" ]; then
-                cd /usr/sbin
-                rm lrcfg cps cpsi cpsr
                 cat $PACKLIST | while read PKG; do
                    [ "$PKG" = "cps" ] || echo $PKG >> $TMP/pkg.tmp
                 done
                 rm $MNT/cps.tgz $PACKLIST /var/lib/lrpkg/cps.*
                 mv $TMP/pkg.tmp $PACKLIST
-                cp lrcfg.old.cps lrcfg
+                cd /usr/sbin
+                rm menu cps cpsi cpsr
+                cp /etc/cps/menu.old menu
+		rm -rf /etc/cps
                 sync
 		qt umount $MNT
 		lrcfg.back
@@ -96,30 +106,8 @@ while [ : ]; do				# force user selection loop
                 read JUNK
               fi ;;
       h | H ) clear
-              echo "                              CPS Help"
-	      echo "                             ^^^^^^^^^^"
-	      echo " Packages, documentation and other help can be found at.."
-	      echo "   http://www.routerdesign.com/sideprojects/cl_cps/cpshome.shtml"
-	      echo
-	      echo " Development Team"
-	      echo " ~~~~~~~~~~~~~~~~"
-	      echo "  Programing & Concept"
-	      echo "       Wes Brewer [nd3] - nd3@routerdesign.com"
-	      echo "  Alpha & Beta Testing"
-	      echo "       Rusty Martin [omega monk] - omega_monk@yahoo.com"
-	      echo "       Mel Kliner [northern rebel] - mkliner@neo.rr.com"
-	      echo "       Andrew Barnes [canuckle] - canucklehead@ethergear.com"
-	      echo
-	      echo " Contributions & Dontations"
-	      echo " ~~~~~~~~~~~~~~~~~~~~~~~~~~"
-	      echo "  If you find this software useful then please contribute to the development"
-	      echo "  of Coyote Linux. Without Coyote Linux, CPS wouldn't exsist!"
-	      echo "    http://www.coyotelinux.com/contribute.php"
-	      echo
-	      echo "  If you would like to contribute directly to the CPS project then you can do"
-	      echo "  so by visiting the site below and viewing the \"contribute\" sidebar."
-	      echo "    http://www.routerdesign.com"
-	      read JUNK ;;
+    		more /etc/cps/help.txt
+      	      read JUNK ;;
             * ) ;;
    esac
 done
