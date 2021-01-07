@@ -1,0 +1,50 @@
+Blank Template v1.1	
+This is not an installable package for CPS! It is a template along with instructions on how to build a CPS package.	Wesley Brewer
+
+
+DNScache v1.0
+This pack is a local DNS cache to run on your router. Any machines behind the router can use this cache (granted they are allowed). It functions as it’s own resolver so it doesn’t need to know about your ISP’s DNS servers! Running a local DNS cache makes you less reliant on your ISP and provides faster DNS lookups once the data is cached.	Wesley Brewer
+
+
+EZ-IP Update v1.5
+Ez-ipupdate is a small utility for updating your host name IP for many dynamic DNS services.. ez-ip.net, justlinux.com, dhs.org, dyndns.org, ods.org, gnudip.cheapnet.net (GNUDip), dyn.ca (GNUDip), tzo.com, easydns.com, dyns.cx, hn.org, zoneedit.com.	Wesley Brewer
+
+
+IPtraf v1.1
+IPtraf is an ncurses-based IP LAN monitor that generates various network statistics including TCP info, UDP counts, ICMP and OSPF information, Ethernet load info, node stats, IP checksum errors, and others. If the command is issued without any command-line options, the program comes up in interactive mode, with the various facilities accessed through the main menu.	Malcolm John Lewis
+
+
+LCDproc v0.7a
+This pack contains drivers for many LCD displays you may have for your router. It contains the LCDd daemon, LCDproc v0.4.3 client, and the NetLCD v0.2.2 client. The LCD displays supported include.. Bayrad, Crystal Fontz, Hitachi HD44780, PIC-an-LCD, LCDM001, Matrix Orbital, Matrix Orbital GLK, SED1330, SED1520, STV5730, and Toshiba T6963. Display drivers are each packaged in their own .cps file to save space. This requires an extra step on your part. Download, unzip and read the included readme.txt file.	Wesley Brewer
+
+
+LCDproc v1.0
+This pack contains drivers for many LCD displays you may have for your router. It contains the LCDd daemon, LCDproc v0.4.3 client, and the NetLCD v0.2.2 client. The LCD displays supported include.. Bayrad, Crystal Fontz, CWLinux, Hitachi HD44780, PIC-an-LCD, LCDM001, Matrix Orbital, Matrix Orbital GLK, SED1330, SED1520, SGX120, STV5730, Toshiba T6963 Wirz-SLI. This version fixed a memory leak that was found in package version 0.7a!  Display drivers are each packaged in their own .cps file to save space. This requires an extra step on your part. Download, unzip and read the included readme.txt file.	Wesley Brewer
+
+
+SNMP Protocol v1.2 (limited)
+SNMP (Simple Network Management Protocol) with limited functionality. Useful for apps like MRTG.Wesley Brewer
+
+
+TCPdump v1.1
+If you don’t know what tcpdump does then you probably dont want it. (it’s a protocol packet capture and dumper program). Please note that this version also has an ascii option.	Malcolm John Lewis
+
+
+ToolPak1 V1.3
+This pack contains some tools that Coyote forgot! In it you’ll find tools to reload your firewall & masq scripts, backup your CL disk, format a disk, modify a program’s scheduling priority, emulated Vi editor, and an emulated pico editor! If you get just 1 package then this should be the one, it’s a lot of handy tools for only 10k of space!!	Wesley Brewer
+
+
+ToolPak2 v1.1
+This pack contains some more tools that Coyote forgot! In it you’ll find tools to.. Update system clocks via rdate & hwclock (r-time), a basic e-mail client (mncmail), shutdown, disconnect & wait, and start the ppp- daemon (ppp-down, ppp-stop, ppp-up), and a basic ftp client to ftp your files elsewhere.	Malcolm John Lewis
+
+
+Top v1.1
+Top is a program which provides an ongoing look at processor activity in real time. It displays a listing of the most CPU intensive tasks on the system and can provide an interactive interface for manipulating processes. It can sort the tasks by CPU usage, memory usage and runtime.	Malcolm John Lewis
+
+
+Weblet Tiny v1.5
+Weblet Tiny uses a shell-script based web server (sh-httpd) and some CGI scripts that let you check on the status of your Coyote box and read log files with a web-browser. This version of weblet DOES NOT include the bandwidth monitor (lrpstat).	Wesley Brewer
+
+
+Weblet v1.5
+Weblet uses a shell-script based web server (sh-httpd) and some CGI scripts that let you check on the status of your Coyote box and read log files with a web-browser. This version of weblet also includes a java based bandwidth monitor (lrpstat).	Wesley Brewer
