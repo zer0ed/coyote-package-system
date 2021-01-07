@@ -1,0 +1,177 @@
+<html>
+<head>
+<title>Untitled Document</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<h1 align="center">Coyote Package System (CPS) Manual</h1>
+<p>&nbsp;</p>
+<p><b>Table of Contents</b></p>
+<ol>
+  <li><a href="#Anchor2">Installing CPS</a></li>
+  <li><a href="#Anchor3">Using CPS</a></li>
+  <li><a href="#Anchor4">Installing Packages</a></li>
+  <li><a href="#Anchor5">Removing Packages</a></li>
+  <li><a href="#Anchor6">Finishing up (applying the changes)</a></li>
+  <li><a href="#Anchor7">Uninstalling CPS</a></li>
+  <li><a href="#Anchor8">How to build your own CPS Package!!</a></li>
+  <li><a href="#Anchor9">Other Stuff you should know!!</a></li>
+  <li><a href="#Anchor10">Licences &amp; Copyrights</a></li>
+  <li><a href="#Anchor11">Development Team</a></li>
+  <li><a href="#Anchor12">Special Thanks</a></li>
+</ol>
+<hr>
+<p><a name="Anchor2"></a> </p>
+<h3>Installing CPS</h3>
+<p>CPS is installed on your Coyote router via an easy to install patch! You must 
+  have Coyote Linux already installed and running to install CPS! It's suggested 
+  that you make a backup (2nd disk) of your Coyote disk before you patch it! When 
+  your ready, follow the steps below..</p>
+<ol>
+  <li>Obtain the latest version of CPS from the <a href="http://www.routerdesign.com">Router 
+    Design Project</a> website.</li>
+  <li>Unzip it's contents onto a blank floppy disk (in this example we'll use 
+    a 1.44 MS-DOS formatted disk)</li>
+  <li>Place the disk with CPS into the Coyote machine.</li>
+  <li>Mount the disk (mount /dev/fd0u1440 /mnt)</li>
+  <li>Change to the floppy directory (cd /mnt)</li>
+  <li>Run the patch file (./patch)</li>
+  <li>Use the appropriate menu options</li>
+  <li>After you have installed CPS and quit out of the patch menu, get out of 
+    the floppy directory (cd)</li>
+  <li>Now un-mount the floppy (umount /mnt) and remove your CPS disk (you don't 
+    need it anymore)</li>
+  <li>Place the Coyote disk back in the drive and run backup!</li>
+</ol>
+<a name="Anchor3"></a> 
+<h3>Using CPS</h3>
+<p>If you properly installed CPS you should see a new menu option &quot;p) Coyote 
+  Package System&quot;. Using CPS is quite self explainitory but just incase your 
+  lost, we'll walk through some of it below..</p>
+<p>On the CPS main menu you will notice the following..</p>
+<ul>
+  <li>CPS version # in the top right hand corner.</li>
+  <li>CPS Homepage &amp; Copyright info</li>
+  <li>The free space that's available on your boot device (/dev/boot)</li>
+  <li>Some options (which are covered below)</li>
+</ul>
+<a name="Anchor4"></a> 
+<h3>Installing Packages</h3>
+<ol>
+  <li>Obtain CPS packages you wish to install (CPS packs have .cps extention and 
+    are available at the <a href="http://www.routerdesign.com">Router Design Project</a> 
+    website)</li>
+  <li>Put the .cps files on a blank floppy (in this example a 1.44 MS-DOS formatted 
+    floppy is used)</li>
+  <li>Select option &quot;i) Install packages&quot; from the CPS main menu.</li>
+  <li>Place the floppy with your .cps files in the drive on the Coyote machine.</li>
+  <li>Select the appropriate disk size. (1.44 Mb in this example)</li>
+  <li>From the list of files given, type the package you want to install</li>
+  <li>Details of the package size &amp; the free space available are given. If 
+    you encounter an error here then you don't have enough free space on your 
+    CL disk!</li>
+  <li>The package help file is shown, read it!</li>
+  <li>Your asked if you want to edit the package's configuration files (if available)</li>
+  <li>Your asked if you want to install another package from the same disk.</li>
+  <li>Your asked if you want to install another package from a different disk.</li>
+</ol>
+<a name="Anchor5"></a> 
+<h3>Removing Packages</h3>
+<ol>
+  <li>Select option &quot;r) Remove packages&quot; from the CPS main menu.</li>
+  <li>From the list of packages given, type the name of the package you want to 
+    remove</li>
+  <li>After a short period your package is removed and will no longer be on the 
+    list</li>
+  <li>Repeat the steps until you have removed everything you want to, type &quot;q&quot; 
+    to quit</li>
+</ol>
+<a name="Anchor6"></a> 
+<h3>Finishing up (applying the changes)</h3>
+<ol>
+  <li>Make sure you have your Coyote disk in the drive and the write protection 
+    is off!!</li>
+  <li>Select option &quot;f) Finished - backup &amp; reboot&quot;</li>
+  <li>Please wait for all your packages to be backed up</li>
+  <li>Follow the reboot instructions!</li>
+</ol>
+<a name="Anchor7"></a> 
+<h3>Uninstalling CPS</h3>
+<p>In the CPS main menu you will find an option to uninstall CPS. This will ONLY 
+  remove CPS and it WILL NOT remove and packages you installed using CPS!! Uninstalling 
+  CPS will restore your Coyote main menu (lrcfg) back to the way it was before 
+  CPS!</p>
+<ol>
+  <li>Make sure your Coyote disk is in the drive!!</li>
+  <li>Select option &quot;u) Uninstall CPS&quot;</li>
+  <li>Are you sure you want to uninstall CPS: [y/n]?</li>
+  <li>CPS is uninstalled and your Coyote disk is backed up!</li>
+</ol>
+<a name="Anchor8"></a> 
+<h3>How to build your own CPS Package!!</h3>
+<ol>
+  <li>Obtain the <a href="http://www.routerdesign.com/sideprojects/cl_cps/downloads/blank.tgz">blank.tgz</a> 
+    file from the <a href="http://www.routerdesign.com">Router Design Project</a> 
+    website.</li>
+  <li>extract it's contents to a temp directory (this will be your blank template)</li>
+  <li>open the readme.html file and follow the instructions found there!</li>
+</ol>
+<a name="Anchor9"></a> 
+<h3>Other Stuff you should know!!</h3>
+<ul>
+  <li>A <a href="http://www.coyotelinux.com/phorum/list.php?f=11" target="_blank">CPS 
+    forum</a> is available at the <a href="http://www.coyotelinux.com" target="_blank">Coyote 
+    Linux website</a></li>
+  <li>Help is available under option &quot;h) Help and other info&quot; on the 
+    CPS main menu.</li>
+  <li>Configuration &amp; Help files are available for each package through their 
+    package menu's (Main menu -&gt; 3) Package Settings -&gt; [package].</li>
+</ul>
+<a name="Anchor10"></a> 
+<h3>Licences &amp; Copyrights</h3>
+<ul>
+  <li>CPS is covered under the GNU GPL version 2 as stated during the install 
+    of CPS!</li>
+  <li>CPS is copyrighted by Wes Brewer, 2002.</li>
+  <li>All programs within CPS packages are covered under there respective licences 
+    as specified by the author!</li>
+  <li>All programs within CPS Packages are copyrighted as specified by their respective 
+    authors and/or owners.</li>
+</ul>
+<a name="Anchor11"></a> 
+<h3>Development Team</h3>
+<table width="400" border="1" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#CCCCCC"> 
+    <th>Programming &amp; Concept</th>
+    <th>Alpha &amp; Beta Testing</th>
+  </tr>
+  <tr> 
+    <td>Wes Brewer [nd3]</td>
+    <td>Rusty Martin [omega monk]</td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>Mel Kliner [northern rebel]</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Andrew Barnes [canuckle]</td>
+  </tr>
+</table>
+<p><a name="Anchor12"></a> </p>
+<h3>Special Thanks</h3>
+<ul>
+  <li>Developer's of the original Linux Router Project - LRP</li>
+  <li>Joshua Jackson &amp; everyone responsible for the development of Coyote 
+    Linux</li>
+  <li>Charles Steinkuehler, Jacques Nilo, and all LEAF team members for the great 
+    documentation and various available LRP packages.</li>
+  <li>All LRP package builders and *nix program authors which develop code under 
+    any open source licences!</li>
+  <li>All people who contributed to the development of CPS, it's packages and 
+    people who donate to the Router Design Project&#133; help keep us alive :)</li>
+  <li>And anyone else I may have forgotten!</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,26 @@
+CPS Version 0.7b
+~~~~~~~~~~~~~~~~
+* CPS is now in it's 1st beta release and available to the public
+* Added display of /dev/boot freespace on main CPS menu
+* Finished up CPS Development Team details
+
+CPS Version 0.5a
+~~~~~~~~~~~~~~~~
+* CPS is now a patch for any 1.3x version of Coyote Linux (easy to install).
+* Checks boot device for enough free space before pack install.
+* Option to cancel auto reboot with f) option is used
+* Option to uninstall CPS.
+* Better interface and cleaner source code.
+* Help and other info is available through the menu
+
+CPS Version 0.2a
+~~~~~~~~~~~~~~~~
+* Fixed some broken "remove duplicates" code which had problems when a package was
+  reinstalled over itself.
+* Included prompt to place the CL floppy in the drive with write protect off.
+* Optimized coding in main CPS menu to speed things up.
+
+CPS Version 0.1a
+~~~~~~~~~~~~~~~~
+* 1st alpha release for testing with the CPS development team.
+* Private alpha testing begins!
