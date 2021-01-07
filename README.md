@@ -33,6 +33,8 @@ Development of the floppy disk version of Coyote Linux and CPS has been disconti
 
 ## Later Versions
 
+CPS v0.8 beta testing version can be found in the development branch of this repository. It was never fully tested for final release and if I remember correctly, wasn't compatible with the older packages we provided. This version was for use with Coyote Linux 1.40rc only!
+
 CPS v0.9 was a work in progress with support for Coyote Linux versions 2.x. It was being worked on by Rusty Martin (Omega_Monk) of the dev team and myself. The code was never fully tested and we somehow managed to misplace it. It is forever lost, and development on CPS has long since stagnated.
 
 ## Installation
