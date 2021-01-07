@@ -43,7 +43,7 @@ See [cpsmanual.html](docs/cpsmanual.html) in docs/
 
 [changlog.txt](docs/changelog.txt) and [todo.txt](docs/todo.txt) can be found in docs/
 
-# Packages
+## Packages
 
 Packages for CPS can be found under the cps-packages repository.
 
